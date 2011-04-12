@@ -633,6 +633,9 @@ class BraveOctopus(object):
             pl = zip(links_text,links,range(0,len(links_text)))
             return self.edit_story_page(title,page,clean_page_text,pl,None,cResponse.error_code)
 
+    @cherrypy.expose(alias="favicon.ico")
+    def favicon(self):
+	redirect("images/favicon.ico")
 
 #---------------------------------------------------------------------------
 # Start the server under Google AppEngine

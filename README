@@ -1,7 +1,8 @@
 ## features/bugs
 ## specify content license
 ## query strings not fully storred in signin return url
-
+## implement the ability to monitor a readers session
+## implement flag system on page links
 ## share a link to a story's front page
 ## add comments to story's front page
 ## add tag cloud and ability to undo a tag filter in library
