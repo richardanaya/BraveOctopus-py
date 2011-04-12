@@ -21,7 +21,13 @@ class StoryPage(db.Model):
     page_link = db.StringListProperty()
     page_link_count = db.StringListProperty()
     page_hit = db.IntegerProperty()
+
+class StoryPageLink(db.Model):
+    page = db.ReferenceProperty(StoryPage)
+    text = db.TextProperty()
+    name = db.StringProperty()
+    count = db.IntegerProperty()
     
-class StoryTag(db.Model):
+class StoryTagCount(db.Model):
     name = db.StringProperty()
     count = db.IntegerProperty()

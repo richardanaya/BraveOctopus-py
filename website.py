@@ -4,7 +4,7 @@ import cherrypy
 import wsgiref.handlers
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 import os
-from braveoctopus.data import StoryPage, Story, StoryTag, Account
+from braveoctopus.data import StoryPage, Story, StoryTagCount, Account
 from google.appengine.ext import db
 import string
 from os import environ
@@ -73,13 +73,13 @@ def decrement_tag_count(tag_name):
     adjust_tag_count(tag_name,-1)
 
 def adjust_tag_count(tag_name, val):
-    q = db.GqlQuery("SELECT * FROM StoryTag WHERE name = :1",tag_name)
+    q = db.GqlQuery("SELECT * FROM StoryTagCount WHERE name = :1",tag_name)
     results = q.fetch(1)
     tag = None
     if len(results) > 0:
         tag = results[0]
     else:
-        tag = StoryTag()
+        tag = StoryTagCount()
         tag.name = tag_name
         tag.count = 0
     
@@ -118,7 +118,7 @@ def get_account_stories(account):
     return titles
 
 def get_top_story_tags():
-    q = db.GqlQuery("SELECT * FROM StoryTag ORDER BY count DESC")
+    q = db.GqlQuery("SELECT * FROM StoryTagCount ORDER BY count DESC")
     names = []
     for p in q.fetch(5):
             names.append( (str.lower(str(p.name)), str.capitalize(str(p.name))) )
