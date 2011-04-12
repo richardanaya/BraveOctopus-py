@@ -27,7 +27,13 @@ class StoryPageLink(db.Model):
     text = db.TextProperty()
     name = db.StringProperty()
     count = db.IntegerProperty()
+    flags = db.StringListProperty()
     
 class StoryTagCount(db.Model):
     name = db.StringProperty()
     count = db.IntegerProperty()
+
+class StorySession(db.Model):
+    account = db.ReferenceProperty(Account)
+    story = db.ReferenceProperty(Story)
+    flags = db.StringListProperty()
