@@ -18,19 +18,6 @@ import datetime
 import base64
 import feedparser
 
-## features/bugs
-## specify content license
-## query strings not fully storred in signin return url
-
-## share a link to a story's front page
-## add comments to story's front page
-## add tag cloud and ability to undo a tag filter in library
-## need to create xml dump of story
-## need to implement statistics with previous action stored in base64
-## add jquery suggester for tags
-## add ability to vote a story up
-## add ability to reset statistics
-
 def validate_email(email):
 	if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
             return True
