@@ -407,7 +407,7 @@ class BraveOctopus(object):
         return render_template('cover.html',title=title,author=get_story_owner_name_or_default(story),description=story.description,is_owner=is_owner, is_registered= user != None)
     
     @cherrypy.expose
-    def story(self,title,page):
+    def story(self,title,page,previous_page=None):
         story = get_story_or_none(title)
             
         if story == None:
@@ -419,11 +419,12 @@ class BraveOctopus(object):
         is_owner = do_i_own_story(title)
         is_owned = is_story_owned(title)
         
+	#if page exists
         if p != None:
-            
             page_text = p.page_text.replace("\n","<br/>")
             pl = zip(p.page_link_text,p.page_link)
-            return render_template('story.html', page_text=page_text, page_links=pl, title=title, current_page = page, is_registered = user != None, page_exists=True, is_owner=is_owner, is_owned=is_owned)
+	    stats = [ "50% of people did something", "Some other people blah" ]
+            return render_template('story.html', page_text=page_text, page_links=pl, title=title, current_page = page, is_registered = user != None, page_exists=True, is_owner=is_owner, is_owned=is_owned, stats=stats)
         else:
             return render_template('story.html', title=title, current_page = page, registered = user != None, page_exists=False, is_owner=is_owner, is_owned=is_owned)
     
