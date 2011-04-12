@@ -32,10 +32,10 @@ Actions
    {{ page_text }}<br/><br/>
     <center><img style="margin-bottom:20px" src="/images/horizontal_rule.png"/></center>
     {% for page_link in page_links %}
-    <p><a href="/story?title={{title}}&page={{ page_link[1]|e }}&previous_page={{current_page}}">{{ page_link[0]|e }}</a></p>
+    <p><a href="/story?title={{title}}&page={{ page_link[1]|e }}&previous_page_name={{current_page}}">{{ page_link[0]|e }}</a></p>
      {% endfor %}
     {% else %}
-        <h3>Oh no! This page does not seem to exist!  {% if is_owner %} Only you can save this story and <a href="'/edit_story_page?title={{title}}&page={{current_page}}'">write it</a>!{% else %} The writer is still plotting and scheming your fate. {% endif %}</h3>
+        <h3>Oh no! This page does not seem to exist!  {% if is_owner %} Only you can save this story and <a href="/edit_story_page?title={{title}}&page={{current_page}}">write it</a>!{% else %} The writer is still plotting and scheming your fate. {% endif %}</h3>
     {% endif %}
     <br/>
     </div></div>

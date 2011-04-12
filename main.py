@@ -27,6 +27,7 @@ import feedparser
 ## need to implement statistics with previous action stored in base64
 ## add jquery suggester for tags
 ## add ability to vote a story up
+## add ability to reset statistics
 
 def validate_email(email):
 	if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
@@ -407,7 +408,7 @@ class BraveOctopus(object):
         return render_template('cover.html',title=title,author=get_story_owner_name_or_default(story),description=story.description,is_owner=is_owner, is_registered= user != None)
     
     @cherrypy.expose
-    def story(self,title,page,previous_page=None):
+    def story(self,title,page,previous_page_name=None):
         story = get_story_or_none(title)
             
         if story == None:
@@ -418,15 +419,33 @@ class BraveOctopus(object):
         
         is_owner = do_i_own_story(title)
         is_owned = is_story_owned(title)
+	stats = []
+
+	previous_page = get_page_by_title_and_page_or_none(title,previous_page_name)
+	if previous_page != None:
+	    total_count = 0
+	    for i in range(0,len(previous_page.page_link)):
+		if previous_page.page_link[i] == page:
+		    previous_page.page_link_count[i] = str(int(previous_page.page_link_count[i]) + 1)
+		    previous_page.put()
+		total_count = total_count + int(previous_page.page_link_count[i])
+	    if total_count > 0:
+		for i in range(0,len(previous_page.page_link)):
+		    stats.append(str(100*float(previous_page.page_link_count[i])/total_count)+'% of readers chose to "'+previous_page.page_link_text[i]+'"')
+
         
 	#if page exists
         if p != None:
+	    if p.page_hit == None:
+		p.page_hit = 0
+	    p.page_hit = p.page_hit + 1
+	    p.put()
+	    stats.append('This page has been reached '+str(p.page_hit)+' times by readers.')
             page_text = p.page_text.replace("\n","<br/>")
             pl = zip(p.page_link_text,p.page_link)
-	    stats = [ "50% of people did something", "Some other people blah" ]
             return render_template('story.html', page_text=page_text, page_links=pl, title=title, current_page = page, is_registered = user != None, page_exists=True, is_owner=is_owner, is_owned=is_owned, stats=stats)
         else:
-            return render_template('story.html', title=title, current_page = page, registered = user != None, page_exists=False, is_owner=is_owner, is_owned=is_owned)
+            return render_template('story.html', title=title, current_page = page, registered = user != None, page_exists=False, is_owner=is_owner, is_owned=is_owned,stats=stats)
     
     @cherrypy.expose
     def create_story(self,submit=None, title="", description="", tags="", recaptcha_code=None, error_message="", own_story="single_owner"):
@@ -595,6 +614,9 @@ class BraveOctopus(object):
         
         links_text =  filter(None,[action_text_0,action_text_1,action_text_2,action_text_3,action_text_4])
         links = filter(None,[action_link_0,action_link_1,action_link_2,action_link_3,action_link_4])
+	links_count = []
+	for i in range(0,len(links)):
+	    links_count.append('0')
         
         if cResponse.is_valid:
         
@@ -614,6 +636,7 @@ class BraveOctopus(object):
             p.name = page
             p.page_text = clean_page_text
             p.page_link_text = links_text
+            p.page_link_count = links_count
             p.page_link = links
             p.put()
             redirect("/story?title="+title+"&page="+page)
