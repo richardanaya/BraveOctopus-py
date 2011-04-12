@@ -1,0 +1,22 @@
+{% extends "master.html" %}
+{% block MainContent %}
+  <p style="color:red">{{error_message}}</p>
+  <form method="post" action="do_save_account">
+    <label for="username">Username<small>(What name people see beside my stories)</small>:</label>
+    <input id="username" name="username" type="text" size="30" maxlength="35" value="{{username}}"/><br/>
+    <label for="email">Email<small>(Used for <a href="http://gravatar.com">avatar photo</a> and notifications)</small>:</label>
+    <input id="email" name="email" type="text" size="30" maxlength="320" value="{{email}}"/><br/>
+    <input id="submit" name="submit" type="submit" value="Save"/>
+  </form>
+  <br/>
+  My Stories:
+  <div class="columwrapper">
+  {%- for stories_slice in my_stories|slice(2) %}
+    <div style="margin:3; float:left;width:200px">
+    {%- for story in stories_slice %}
+      <div><div><a href="/cover?title={{story[0]}}">{{story[0]}}</a> <input type="button" onclick="location.href = '/edit_story?title={{story[0]}}'" value="Edit"></div></div>
+    {%- endfor %}
+    </div>
+  {%- endfor %}
+</div>
+{% endblock %}

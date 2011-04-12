@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+{% block MainContent %}
+    <form method="post" action="send_contact">
+    <div class="form_description">
+            Feel free to contact us about anything, we like to know from our community how we can make Brave Octopus better.  Send us:
+            <ul>
+                <li>Ideas, thoughts, reflections</li>
+                <li>Incorrectly categorized content</li>
+                <li>Illegal/Copywrited material notifications</li>
+            </ul>
+            By sending us this information you give us the right to use it publically in any way we choose.  Please be polite/professional, or you will be ignored.
+    </div><br/>
+    
+    <p style="color:red">{{error_message}}</p>
+    
+    <label for="subject">Subject:</label>
+    <input id="subject" name="subject" type="text" size="30" maxlength="50" value="{{ subject }}"><br/>
+    <label for="email">My Email:</label>
+    <input id="email" name="email" type="text" size="30" maxlength="250"  value="{{ email }}"/><br/>
+    
+    <label for="email_text">My Comments</label>
+    <div>
+            <textarea id="email_text" name="email_text" style="width:470px" maxlength="500">{{ email_text }}</textarea> 
+    </div>
+
+    <div>
+        <input id="submit"  type="submit" name="submit" value="Send" />
+        {{ captcha }}
+    </div>
+    </form>
+{% endblock %}

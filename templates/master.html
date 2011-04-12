@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <title>Brave Octopus - A Social Adventure Story Community</title>
+        <script type="text/javascript" src="/javascript/jquery.js"></script>
+        <!--link rel="icon" type="image/png" href="/images/octopus_icon.png"-->
+        <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
+        <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print">
+        <link rel="stylesheet" type="text/css" media="screen" href="css/openid.css" />
+        <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+        <style>
+            body { font-family: 'Yanone Kaffeesatz',  serif; font-size: 14pt; text-align: center; /* for IE */ }
+        </style>
+        <script type="text/javascript">
+
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-18108112-1']);
+            _gaq.push(['_trackPageview']);
+          
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+          
+          </script>
+    </head>
+    <body>
+        <div class="container" style="margin: 0 auto;   /* align for good browsers */ text-align: left; /* counter the body center */">
+            <div class="span-24 last" >
+                <div style="float:left"><h1 class="title" style="font-size:42pt"><a href="/index" style="text-decoration:none;color:black"><img  style="vertical-align:middle;margin-top:3px; margin-right:10px" src="/images/logo.png"/></a></h1></div>
+                <div style="vertical-align:top; float:right;">{{ login }}</div>
+            </div>
+            
+            <div class="span-6">
+                Places <br/>
+                <small>
+                <ul>
+                    <li><a href="/index">Home</a></li>
+                    <li><a href="/create_story">Create a Story</a></li>
+                    <li><a href="/account">My Account</a></li>
+                    <li><a href="/library">Library</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                </ul>
+                </small>
+                
+                {% block ActionColumn %}{% endblock %}
+                Stories<br/>
+                <small>
+                Top Stories
+                {% for story in stories %}
+                    <div style="padding-bottom:3px"><div><img style="float:left; margin-right:5px" src="{{story[1]}}"><a href="/cover?title={{story[0]}}">{{story[0]}}</a><br/><i>by {{story[2]}}</i></div></div>
+                 {% endfor %}
+                </small>
+                <br/>
+                
+                <form action="/search" id="cse-search-box">
+                    <small>Search for stories</small>
+                    <div>
+                      <input type="text" name="q" size="20" />
+                      <input type="submit" value="Search" />
+                    </div>
+                  </form>
+                <small><br/>
+                    
+                Looking for more?  Come <a href="/library">dig through our library</a> of all stories written.  Find books by popular tags such as:
+                <ul>
+                    {% for tag in top_tags %}
+                        <li><a href="/library?tags={{tag[0]}}">{{tag[1]}}</a></li>
+                    {% endfor %}
+                </ul>
+                </small>
+                
+                 <small>
+                Latest Stories
+                {% for story in latest_stories %}
+                    <div><a href="/cover?title={{story[0]}}">{{story[0]}}</a><br/><i>by {{story[2]}}</i></div>
+                 {% endfor %}
+                </small>
+                <br/>
+            </div>
+            
+            <!-- 470px -->
+            <div class="span-12">
+                {% block MainContent %}
+                Main Content
+                {% endblock %}
+            </div>
+            <div class="span-6 last">
+                {% block TopRightColumn %}
+                
+                {% endblock %}
+                <center>
+               <script type="text/javascript"><!--
+google_ad_client = "pub-2436943433454278";
+/* BraveOctopusWide */
+google_ad_slot = "9477541185";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+                </center>
+            </div>
+            <div class="span-24 last" >
+                <br/>
+                <br/>
+                All rights reserved.  BraveOctopus.com
+                <a href="http://appengine.google.com"><img style="float:right; border:0px" src="http://code.google.com/appengine/images/appengine-noborder-120x30.gif" alt="Powered by Google App Engine" /></a>
+                <a href="http://cherrypy.org"><img style="float:right; border:0px" height="30" src="/images/cherrypy_logo_small.jpg" alt="Powered by CherryPy" /></a>
+                <a href="http://python.org"><img style="float:right; border:0px" height="30" src="/images/python-logo.png" alt="Powered by Python"  /></a>
+            </div>
+        </div>
+    </body>
+</html>

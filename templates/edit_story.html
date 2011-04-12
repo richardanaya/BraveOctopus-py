@@ -1,0 +1,57 @@
+{% extends "master.html" %}
+{% block MainContent %}
+    <script LANGUAGE="JavaScript"> 
+function confirmSubmit() 
+{
+var agree=confirm("Are you sure you wish to continue?");
+if (agree)
+	return true ;
+else
+	return false ;
+}
+</script>
+    <form method="post" action="do_save_story">
+        <input id="current_title" name="current_title" type="hidden" value="{{title}}"/>
+         <label class="description" for="story_title">Title:</label>
+        <input id="story_title" name="story_title" type="text" size="30" maxlength="100" value="{{title}}"/>
+        <br/>
+        <label class="description" for="page_text">Description <small>(Tease the reader about your tale):</small></label>
+        <div>
+                <textarea id="story_description" name="story_description" style="width:470px">{{description }}</textarea> 
+        </div>
+         <label class="description" for="story_tags">Tags <small>(Space separated, e.g "octopus tentacles ocean"):</small></label>
+        <input id="story_tags" name="story_tags" type="text" size="30" maxlength="100" value="{{tags}}"/>
+        <br/>
+        
+        <div>
+        <input id="submit""  type="submit" name="submit" value="Save" />
+        <input id="cancel"  type="button" name="cancel" value="Cancel" />
+        {{ captcha }}
+     </div>
+    
+      
+        <script>
+          
+            $('#cancel').click(function() {
+               history.go(-1);
+             });
+             
+        </script>
+    </form>
+    
+    <form method="post" action="delete_story">
+       
+         
+        <input id="title" name="title" type="hidden" value="{{ title }}"/>
+        Delete this story ( This cannot be undone! )<br/>
+        <input id="submit"  type="submit" name="submit" value="Delete" onClick="return confirmSubmit()" />
+        <br/>
+        Pages:
+        <ul>
+            {% for page in pages %}
+                <li><a href="/story?title={{title}}&page={{page}}">{{page}}</a></li>
+            {% endfor %}
+        </ul>
+    </form>
+    
+{% endblock %}

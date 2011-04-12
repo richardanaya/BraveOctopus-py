@@ -1,0 +1,40 @@
+{% extends "master.html" %}
+{% block MainContent %}
+  <form method="post" action="do_create_story">
+    <div class="form_description">
+            <p>Before you get started writing! Tell the world a bit about the story you will be sharing.</p>
+            <p style="color:red">{{error_message}}</p>
+    </div>
+    
+    <label class="description" for="story_title">Title:</label>
+    <input id="story_title" name="story_title" type="text" size="30" maxlength="100" value="{{title}}"/>
+    <br/>
+    <label class="description" for="page_text">Description <small>(Tease the reader about your tale):</small></label>
+    <div>
+            <textarea id="story_description" name="story_description" maxlength="500" style="width:470px">{{description }}</textarea> 
+    </div>
+     <label class="description" for="story_tags">Tags <small>(Space separated, e.g "octopus tentacles ocean"):</small></label>
+    <input id="story_tags" name="story_tags" type="text" size="30" maxlength="100" value="{{tags}}"/>
+    <br/>
+    {% if real_user %}
+    <input id="own_story" name="own_story" type="checkbox" value="single_owner" {% if own_story %} checked {% endif %}/>
+    <label for="own_story"><small>I want to own this story and not allow anyone else to modify.</small></label>
+    {% endif %}
+   
+    <div>
+        <input id="submit""  type="submit" name="submit" value="Create" />
+        <input id="cancel"  type="button" name="cancel" value="Cancel" />
+        {{ captcha }}
+    </div>
+    
+    
+    </form>
+  
+  <script>
+      
+        $('#cancel').click(function() {
+           history.go(-1);
+         });
+         
+    </script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "master.html" %}
+{% block ActionColumn %}
+
+Actions
+<ul>
+    <li><small><a href="/cover?title={{title}}">Start from the beginning</a></small><br/></li>
+    {% if is_owner %}
+    <li><small><a href="/edit_story_page?title={{title}}&page={{current_page}}">Edit this page</a></small><br/></li>
+    {% if is_registered %}<li><small><a href="/edit_story?title={{title}}">Edit this story</a></small></li>{% endif %}
+    {% endif %}
+</ul>
+
+{% endblock %}
+{% block TopRightColumn %}
+<small>
+<center>Statistics</center>
+
+<ul>
+    <li>60% of people chose to "Open door A"</li>
+    <li>5 people have ever reached this page</li>
+</ul>
+</small>
+{% endblock %}
+{% block MainContent %}
+<div style="background-image: url('/images/shadow.png');
+        background-size: 100%;
+	padding-left:9px;padding-right:9px; padding-top: 9px">
+    <div style="background:white;padding-left:12px;padding-right:12px"><br/>
+   {% if page_exists %}
+    <center><small>{{title}}</small></center><br/>
+   {{ page_text }}<br/><br/>
+    <center><img style="margin-bottom:20px" src="/images/horizontal_rule.png"/></center>
+    {% for page_link in page_links %}
+       <p><a href="/story?title={{title}}&page={{ page_link[1]|e }}">{{ page_link[0]|e }}</a></p>
+     {% endfor %}
+    {% else %}
+        <h3>Oh no! This page does not seem to exist!  {% if is_owner %} Only you can save this story and <a href="'/edit_story_page?title={{title}}&page={{current_page}}'">write it</a>!{% else %} The writer is still plotting and scheming your fate. {% endif %}</h3>
+    {% endif %}
+    <br/>
+    </div></div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "master.html" %}
+{% block MainContent %}
+<div class="columwrapper">
+  {%- for stories_slice in all_stories|slice(2) %}
+    <div style="margin:3; float:left;width:200px">
+    {%- for story in stories_slice %}
+      <div><div><img style="float:left; margin-right:5px" src="{{story[1]}}"><a href="/cover?title={{story[0]}}">{{story[0]}}</a><br/><i>by {{story[2]}}</i></div></div>
+    {%- endfor %}
+    </div>
+  {%- endfor %}
+</div>
+{% endblock %}

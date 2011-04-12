@@ -1,0 +1,20 @@
+{% extends "master.html" %}
+{% block ActionColumn %}
+
+Actions
+<ul>
+    <li><small><a href="http://blog.braveoctopus.com/feeds/posts/default"><img src="/images/feed-icon-14x14.png" style="border:0px"/>Subscribe to RSS</a></small><br/></li>
+</ul>
+
+{% endblock %}
+{% block MainContent %}
+{% for entry in entries %}
+    <h6>{{entry.title}}</h6>
+    {{entry.date}}<br/>
+    {{entry.content[0].value}}
+    <small><a href="{{entry.link}}">Original Post</a></small> <br/> <br/>
+{% endfor %}
+
+See the archives at <a href="http://blog.braveoctopus.com//">http://blog.braveoctopus.com</a>
+
+{% endblock %}

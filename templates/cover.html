@@ -1,0 +1,35 @@
+{% extends "master.html" %}
+{% block ActionColumn %}
+{% if is_owner and is_registered %}
+Actions
+<ul>
+    <li><small><a href="/edit_story?title={{title}}">Edit this story</a></small></li>
+</ul>
+{% endif %}
+{% endblock %}
+{% block TopRightColumn %}
+<small><center>Statistics</center>
+
+<ul>
+    <li>40 people have read this story</li>
+    <li>5 people have completed this story alive</li>
+</ul>
+</small>
+{% endblock %}
+{% block MainContent %}
+
+
+   <div style="background-image: url('/images/shadow.png');
+        background-size: 100%;
+	padding-left:9px;padding-right:9px; padding-top: 9px">
+    <div style="background:white;padding-left:9px;padding-right:9px"><br/>
+    <center><h3>{{title}}</h3></center>
+    <center>by {{author}}</center>
+    <br/>
+    <center><div style="width:350px;text-align:left"> {{description}}</div></center>
+    <br/>
+    <center><a href="/story?title={{title}}&page=FrontPage">Start reading!</a></center>
+    <br/>
+    </div>
+    </div>
+{% endblock %}

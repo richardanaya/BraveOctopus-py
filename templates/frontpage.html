@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+{% block MainContent %}
+   <p>Welcome to Brave Octopus! We love to read adventure stories. Here you'll find a community to create, share, and explore each others tales. It's easy to get started.</p>
+    <center><input id="create_story" name="create_story" type="button" style="font-size:24pt;font-family: 'Yanone Kaffeesatz', sans-serif;" value="Create Your Story!"/></center>
+    <script>
+        $('#create_story').click(function() {
+           document.location.href = '/create_story';
+         });
+         
+   </script>
+    
+    <br/>
+   <center>
+<div class="image">
+<img src="/images/nautilus.jpg"/>
+<div> Captain Nemo viewing a giant squid from a porthole of the Nautilus submarine </div>
+<div> <small><i>20,000 Lieues Sous les Mers</i> by Jules Verne</small> </div>
+</div>
+    </center><br/>
+   
+   
+    
+    We love to read and write adventures of all sort, and we've created just the perfect tools to do so<br/>
+   
+   <ul>
+    <li>Content and tagging system so you can search/filter by what exactly you like to read</li>
+    <li>iPhone application for killing time on good fiction (Coming soon)</li>
+    <li>Tools for writing a story solo or collaboratively (Coming soon)</li>
+   </li>
+   </ul>
+   If you have a great idea you think we should have, feel free to <a href="/contact">let us know</a>!
+{% endblock %}

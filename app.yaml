@@ -1,0 +1,17 @@
+application: brave-octopus
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /steamquest
+  static_dir: steamquest
+- url: /css
+  static_dir: css
+- url: /javascript
+  static_dir: javascript
+- url: /images
+  static_dir: images    
+
+- url: .*
+  script: main.py

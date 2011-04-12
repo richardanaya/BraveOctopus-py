@@ -1,0 +1,51 @@
+{% extends "master.html" %}
+{% block MainContent %}
+  Becoming a member of Brave Octopus is easy!  Rather than have you create some account specifically for us, we allow you to use a membership in existing website to submit stories.  Login from any of our <a href="http://openid.net">OpenID</a> providers below:<br/><br/>
+  <form class="openid" method="post" action="/do_login{% if return_url %}?return_url={{return_url}}{% endif %}"> 
+  <div><ul class="providers">
+  <li class="username" title="MyOpenID user name"> 
+		<img src="images/myopenid.png" alt="icon" /><span>http://<strong>username</strong>.myopenid.com/</span></li> 
+  <li class="direct" title="Gmail Username"> 
+		<img src="images/googleW.png" alt="icon" /><span>https://www.google.com/accounts/o8/id</span></li> 
+  <li class="direct" title="Yahoo Id"> 
+		<img src="images/yahooW.png" alt="icon" /><span>http://yahoo.com/</span></li>
+<li class="username" title="AOL screen name"> 
+		<img src="images/aolW.png" alt="icon" /><span>http://openid.aol.com/<strong>username</strong></span></li> 
+  <li class="username" title="Flickr user name"> 
+		<img src="images/flickr.png" alt="icon" /><span>http://flickr.com/<strong>username</strong>/</span></li> 
+  <li class="username" title="Technorati user name"> 
+		<img src="images/technorati.png" alt="icon" /><span>http://technorati.com/people/technorati/<strong>username</strong>/</span></li> 
+  <li class="username" title="Wordpress blog name"> 
+		<img src="images/wordpress.png" alt="icon" /><span>http://<strong>username</strong>.wordpress.com</span></li> 
+  <li class="username" title="Blogger blog name"> 
+		<img src="images/blogger.png" alt="icon" /><span>http://<strong>username</strong>.blogspot.com/</span></li> 
+  <li class="username" title="LiveJournal blog name"> 
+		<img src="images/livejournal.png" alt="icon" /><span>http://<strong>username</strong>.livejournal.com</span></li>
+  </ul></div> 
+  <center><small><fieldset> 
+  <label for="openid_username">Enter your <span>Provider user name</span></label> 
+  <div><span></span><input type="text" name="openid_username" /><span></span> 
+  <input type="submit" value="Login" /></div> 
+  </fieldset> 
+  <fieldset> 
+  <label for="openid_identifier"><small>Click on your identity provider above and enter your username below</small></label> 
+  <div><input type="text" name="openid_identifier" /> 
+  <input type="submit" value="Login" /></div> 
+  </fieldset></small></center>
+</form>
+<p>
+There are many cool reasons why you would like join our community:
+    <ul>
+        <li>Create stories that you have complete control over and aren't modifyable by the public</li>
+        <li>Vote for stories you like</li>
+        <li>Keep track of stories you've read and start back where you left off</li>
+        <li>Earn acheivements througout stories you read</li>
+        <li>Establish your identity as one of Brave Octopus' coolest writers!</li>
+    </ul>
+</p>
+
+<script type="text/javascript" src="javascript/jquery.openid.js"></script>
+
+<script type="text/javascript">  $(function() { $("form.openid:eq(0)").openid(); });</script>
+
+{% endblock %}

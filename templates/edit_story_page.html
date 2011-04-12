@@ -1,0 +1,51 @@
+	{% extends "master.html" %}
+{% block MainContent %}
+            
+            <form method="post" action="save_story_page">
+            <input id="title" name="title" type="hidden" value="{{ title }}"/>
+            <input id="page" name="page" type="hidden" value="{{ current_page }}"/>
+            <div class="form_description">
+                    <h2>Edit Page "{{ current_page }}" of {{title}}</h2>
+                    <p>This page allows you to type that text that will show up on this page.  You can specify links to other pages by typing in the name of the page as the "Page Link", and the action text you'd like to show the reader ("Open the left door", etc.)</p>
+            </div>
+            
+            <label class="description" for="page_text">Page Text</label>
+            <div>
+                    <textarea id="page_text" name="page_text" style="width:470px" maxlength="2000">{{ page_text }}</textarea> 
+            </div>
+            
+             <label class="description">Page Link / Action Text  </label>
+            <div id="action_links" name="action_links">
+                    {% for page_link in page_links %}
+                       <input id="action_link_{{ page_link[2]|e }}" name="action_link_{{ page_link[2]|e }}" class="" type="text" size="30" maxlength="30" value="{{ page_link[1]|e }}"/>
+                       <textarea id="action_text_{{ page_link[2]|e }}" name="action_text_{{ page_link[2]|e }}" style="width:470px;height:75px" maxlength="200">{{ page_link[0]|e }}</textarea> 
+                    {% endfor %}
+            </div>
+            <div>
+                <input id="add_action"  type="button" name="add_action" value="Add Action" />
+                <input id="submit"  type="submit" name="submit" value="Save" />
+                <input id="cancel"  type="button" name="cancel" value="Cancel" />
+                {{ captcha }}
+            </div>
+            </form>
+            
+            
+                    
+            <script>
+                var action_link_count = {{ action_link_count }}
+                $('#add_action').click(function() {
+                    if( action_link_count == 5) {
+                        alert("Sorry, at the moment you can only have 5 actions.");
+                        return;
+                    }
+                    $('#action_links').append('<input id="action_link_'+action_link_count+'" name="action_link_'+action_link_count+'" class="" type="text" size="30" maxlength="30"/>'+
+                       '<textarea id="action_text_'+action_link_count+'" name="action_text_'+action_link_count+'" style="width:470px;height:75px" maxlength="200"></textarea> ');
+                    action_link_count += 1;
+                  });
+                
+                 $('#cancel').click(function() {
+                    history.go(-1);
+                  });
+                  
+            </script>
+{% endblock %}
