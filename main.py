@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, 'lib.zip')
 import cherrypy
 import wsgiref.handlers
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
